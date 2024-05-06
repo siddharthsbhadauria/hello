@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import Photography from './pages/Photography';
 import Technology from './pages/Technology';
@@ -20,14 +20,15 @@ function App() {
         </nav>
       </header>
 
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/photography" component={Photography} />
-        <Route path="/technology" component={Technology} />
-        <Route path="/travel" component={Travel} />
-      </Switch>
+      <Routes>  {/* Use Routes instead of Switch */}
+        <Route path="/" element={<Home />} />  {/* Use element prop */}
+        <Route path="/photography" element={<Photography />} />
+        <Route path="/technology" element={<Technology />} />
+        <Route path="/travel" element={<Travel />} />
+      </Routes>
     </Router>
   );
 }
 
 export default App;
+
