@@ -15,9 +15,18 @@ jobs:
         run: npm install
       - name: Build React app
         run: npm run build
-      - name: Deploy to GitHub Pages
-        uses: gh-pages/deploy@v1
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
-          target_dir: build
+          name: build
+          path: build
+      - name: Deploy to GitHub Pages
+        uses: actions/download-artifact@v2
+        with:
+          name: build
+        run: |
+          mkdir -p public
+          cp -r build/* public/
+          git add public
+          git commit -m "Deploy to GitHub Pages"
+          git push origin gh-pages
